@@ -11,6 +11,11 @@ void ALobbyGameMode::PostLogin(APlayerController* NewPlayer)
 	int32 NumberOfPlayers = GameState.Get()->PlayerArray.Num();
 	if (NumberOfPlayers == 2)
 	{
-		//TODO: remove hardcoded player limit and do server travel
+		UWorld* World = GetWorld();
+		if (World)
+		{
+			bUseSeamlessTravel = true;
+			World->ServerTravel(FString("/Game/Maps/BlasterMap?listen"));
+		}
 	}
 }
