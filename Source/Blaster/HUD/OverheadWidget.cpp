@@ -3,6 +3,7 @@
 
 #include "OverheadWidget.h"
 #include "Components/TextBlock.h"
+#include "GameFramework/PlayerState.h"
 
 void UOverheadWidget::SetDisplayText(FString TextToDisplay)
 {
@@ -36,6 +37,21 @@ void UOverheadWidget::ShowPlayerNetRole(APawn* InPawn)
 	}
 	FString RemoteRoleString = FString::Printf(TEXT("Remote Role: %s"), *Role);
 	SetDisplayText(RemoteRoleString);
+}
+
+void UOverheadWidget::ShowPlayerInfo(APawn* InPawn)
+{
+	APlayerState* State = InPawn->GetPlayerState();
+	FString PlayerName;
+	if (State)
+	{
+		PlayerName = State->GetPlayerName();
+	}
+	else
+	{
+		PlayerName = TEXT("Unknown Player");
+	}
+	SetDisplayText(PlayerName);
 }
 
 void UOverheadWidget::NativeDestruct()
