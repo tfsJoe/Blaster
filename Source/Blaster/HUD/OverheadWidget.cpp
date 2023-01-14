@@ -35,6 +35,7 @@ void UOverheadWidget::ShowPlayerNetRole(APawn* InPawn)
 		break;
 	}
 	FString LocalRoleString = FString::Printf(TEXT("Local Role: %s"), *Role);
+	UE_LOG(LogTemp, Log, TEXT("Local Role: %s"), *Role);
 	SetDisplayText(LocalRoleString);
 }
 
