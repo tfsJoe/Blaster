@@ -4,6 +4,7 @@
 #include "Weapon.h"
 #include "Components/SphereComponent.h"
 #include "Components/WidgetComponent.h"
+#include "Blaster/Character/BlasterCharacter.h"
 
 // Sets default values
 AWeapon::AWeapon()
@@ -26,17 +27,44 @@ AWeapon::AWeapon()
 
 	PickupWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("PickupWidget"));
 	PickupWidget->SetupAttachment(RootComponent);
+
+	UE_LOG(LogTemp, Display, TEXT("Weapon constructed"));
 }
 
 // Called when the game starts or when spawned
 void AWeapon::BeginPlay()
 {
 	Super::BeginPlay();
+	if (PickupWidget)
+	{
+		UE_LOG(LogTemp, Display, TEXT("Pickup widget off"));
+		PickupWidget->SetVisibility(false);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Display, TEXT("Pickup widget not found"));
+	}
 	
 	if (HasAuthority())
 	{
 		AreaSphere->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 		AreaSphere->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Overlap);
+		AreaSphere->OnComponentBeginOverlap.AddDynamic(this, &AWeapon::OnSphereOverlap);
+	}
+
+	UE_LOG(LogTemp, Display, TEXT("Weapon begin play"));
+}
+
+void AWeapon::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	UE_LOG(LogTemp, Display, TEXT("Sphere overlap!"));
+	if (PickupWidget)
+	{
+		ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(OtherActor);
+		if (BlasterCharacter)
+		{
+			PickupWidget->SetVisibility(true);
+		}
 	}
 }
 
