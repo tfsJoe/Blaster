@@ -36,6 +36,9 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Weapon Properties")
 	class USphereComponent* AreaSphere;	//why `class` here but not on other prop?
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, Category = "Weapon Properties")
 	EWeaponState WeaponState;
+
+	UPROPERTY(EditAnywhere, Category = "Weapon Properties", meta = (AllowPrivateAccess = true))
+	class UWidgetComponent* PickupWidget;
 };
