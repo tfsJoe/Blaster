@@ -55,18 +55,6 @@ void AWeapon::BeginPlay()
 	UE_LOG(LogTemp, Display, TEXT("Weapon begin play"));
 }
 
-void AWeapon::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	UE_LOG(LogTemp, Display, TEXT("Sphere overlap!"));
-	if (PickupWidget)
-	{
-		ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(OtherActor);
-		if (BlasterCharacter)
-		{
-			PickupWidget->SetVisibility(true);
-		}
-	}
-}
 
 // Called every frame
 void AWeapon::Tick(float DeltaTime)
@@ -75,3 +63,21 @@ void AWeapon::Tick(float DeltaTime)
 
 }
 
+void AWeapon::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	UE_LOG(LogTemp, Display, TEXT("Sphere overlap!"));
+	ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(OtherActor);
+	if (BlasterCharacter)
+	{
+		BlasterCharacter->SetOverlappingWeapon(this);
+	}
+}
+
+void AWeapon::ShowPickupWidget(bool bShowWidget)
+{
+	if (PickupWidget)
+	{
+		PickupWidget->SetVisibility(bShowWidget);
+	}
+
+}

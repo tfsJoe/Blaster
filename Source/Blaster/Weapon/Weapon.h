@@ -25,6 +25,8 @@ public:
 	// Sets default values for this actor's properties
 	AWeapon();
 	virtual void Tick(float DeltaTime) override;
+	void ShowPickupWidget(bool bShowWidget);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -49,6 +51,6 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Weapon Properties")
 	EWeaponState WeaponState;
 
-	UPROPERTY(EditAnywhere, Category = "Weapon Properties", meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, Category = "Weapon Properties")
 	class UWidgetComponent* PickupWidget;
 };
