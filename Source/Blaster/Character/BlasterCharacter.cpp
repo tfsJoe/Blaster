@@ -112,7 +112,22 @@ void ABlasterCharacter::LookUp(float Value)
 
 void ABlasterCharacter::EquipButtonPressed()
 {
-	if (Combat && HasAuthority())
+	if (Combat)
+	{
+		if (HasAuthority())
+		{
+			Combat->EquipWeapon(OverlappingWeapon);
+		}
+		else
+		{
+			ServerEquipButtonPressed();
+		}
+	}
+}
+
+void ABlasterCharacter::ServerEquipButtonPressed_Implementation()
+{
+	if (Combat)
 	{
 		Combat->EquipWeapon(OverlappingWeapon);
 	}
@@ -125,6 +140,11 @@ void ABlasterCharacter::SetOverlappingWeapon(AWeapon* Weapon)
 	if (OverlappingWeapon && IsLocallyControlled())
 	{
 		OverlappingWeapon->ShowPickupWidget(true);
+		UE_LOG(LogTemp, Display, TEXT("Locally controlled, showing widget"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Display, TEXT("Not locally controlled, or no widget"));
 	}
 }
 
