@@ -8,11 +8,12 @@
             "name": "Build only",
             "type": "cppvsdbg",
             "request": "launch",
+            "cwd": "C:\\Program Files\\Epic Games\\UE_5.1\\Engine\\Binaries\\Win64",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/NoOp.bat"
         },
         {
-            "name": "Unreal Engine",
+            "name": "Launch Unreal Editor",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "C:\\Program Files\\Epic Games\\UE_5.1\\Engine\\Binaries\\Win64\\UnrealEditor.exe",
@@ -22,6 +23,12 @@
             "stopAtEntry": false,
             "cwd": "C:\\Program Files\\Epic Games\\UE_5.1\\Engine\\Binaries\\Win64",
             "preLaunchTask": "build"
-        }
+        },
+        {
+            "name": "Attach to Unreal Editor",
+            "type": "cppvsdbg",
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+        },
     ]
 }
