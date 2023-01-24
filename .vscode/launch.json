@@ -27,6 +27,7 @@
         {
             "name": "Attach to Unreal Editor",
             "type": "cppvsdbg",
+            "preLaunchTask": "build",
             "request": "attach",
             "processId": "${command:pickProcess}",
         },
