@@ -59,4 +59,5 @@ private:
 
 public:	// extra public section made on advice. Why?
 	void SetOverlappingWeapon(AWeapon* Weapon);
+	bool IsWeaponEquipped();
 };
